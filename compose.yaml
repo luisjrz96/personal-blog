@@ -1,0 +1,8 @@
+version: '3'
+services:
+  blog-application:
+    build: .
+    volumes:
+      - .:/default-volume
+    ports:
+      - "8080:8080"
