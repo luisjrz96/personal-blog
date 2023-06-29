@@ -1,7 +1,2 @@
 rootProject.name = 'blog'
-include 'integrationTest'
-include 'src:integrationTest'
-findProject(':src:integrationTest')?.name = 'integrationTest'
-include 'src:integrationTest:java'
-findProject(':src:integrationTest:java')?.name = 'java'
 

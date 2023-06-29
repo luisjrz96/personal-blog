@@ -1,2 +1,3 @@
 # personal-blog
-Personal Blog Project Template
+A personal blog application to provide information about different topics.
+
