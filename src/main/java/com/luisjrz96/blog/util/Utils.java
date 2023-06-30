@@ -42,6 +42,7 @@ public class Utils {
 
   /**
    * Returns a positive number or zero.
+   *
    * @param pageNumber integer value.
    * @return it returns a positive integer, default value: 0.
    */
@@ -51,6 +52,7 @@ public class Utils {
 
   /**
    * Returns a positive number.
+   *
    * @param pageSize integer value.
    * @return it returns a positive integer, default value: 1.
    */
