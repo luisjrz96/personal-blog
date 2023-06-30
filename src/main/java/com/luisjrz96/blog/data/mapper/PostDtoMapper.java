@@ -40,13 +40,8 @@ public interface PostDtoMapper {
    */
   @Named("setTags")
   static List<String> setTags(Post post) {
-    return Optional.ofNullable(post)
-        .map(Post::getPostTagList)
-        .stream()
-        .flatMap(List::stream)
-        .map(PostTag::getTag)
-        .map(Tag::getName)
-        .toList();
+    return Optional.ofNullable(post).map(Post::getPostTagList).stream().flatMap(List::stream)
+        .map(PostTag::getTag).map(Tag::getName).toList();
   }
 
 }
