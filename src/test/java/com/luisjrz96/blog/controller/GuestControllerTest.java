@@ -1,5 +1,7 @@
 package com.luisjrz96.blog.controller;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,26 +30,67 @@ class GuestControllerTest {
   private GuestService guestService;
 
   @Test
-  void test_getAllPosts_WhenMultipleServiceReturnMultiplePosts() {
+  void test_getPostPages_WhenGuestServiceReturnMultiplePosts() {
     ArgumentCaptor<Pageable> pageableArgumentCaptor = ArgumentCaptor.forClass(Pageable.class);
     List<PostDto> postDtoList = List.of(PostDto.builder().title("Post 1")
             .content("Post 1 content").build(),
         PostDto.builder().title("Post 2").content("Post 2 content").build());
     var pagePostDto = new PageImpl<>(postDtoList);
 
-    when(guestService.getAllPosts(pageableArgumentCaptor.capture()))
+    when(guestService.getPostPage(pageableArgumentCaptor.capture()))
         .thenReturn(pagePostDto);
     ResponseEntity<RestPage<PostDto>> responseEntityResult = guestController
-        .getAllPosts(0, 2, "ABC");
+        .getPostPages(0, 2, "ABC");
 
     assertNotNull(responseEntityResult);
     assertNotNull(responseEntityResult.getBody());
-    assertEquals(2, responseEntityResult.getBody().get().count());
-    assertEquals(2, pageableArgumentCaptor.getValue().getPageSize());
     assertEquals(0, pageableArgumentCaptor.getValue().getPageNumber());
+    assertEquals(2, pageableArgumentCaptor.getValue().getPageSize());
+    assertEquals(2, responseEntityResult.getBody().get().count());
     assertNotNull(responseEntityResult.getBody().getContent().get(0));
     assertNotNull(responseEntityResult.getBody().getContent().get(0).getTitle());
     assertTrue(responseEntityResult.getBody().getContent().get(0).getTitle().contains("Post 1"));
+  }
+
+  @Test
+  void test_getCategoryPages_WhenGuestServiceReturnMultipleCategories() {
+    ArgumentCaptor<Pageable> pageableArgumentCaptor = ArgumentCaptor.forClass(Pageable.class);
+    List<String> categoryList = List.of("Java", "DevOps", "Networks");
+    var pageCategories = new PageImpl<>(categoryList);
+
+    when(guestService.getCategoryPage(pageableArgumentCaptor.capture()))
+        .thenReturn(pageCategories);
+    ResponseEntity<RestPage<String>> responseEntityResult = guestController
+        .getCategoryPages(0, 2, "ABC");
+
+    assertNotNull(responseEntityResult);
+    assertNotNull(responseEntityResult.getBody());
+    assertEquals(0, pageableArgumentCaptor.getValue().getPageNumber());
+    assertEquals(2, pageableArgumentCaptor.getValue().getPageSize());
+    assertEquals(3, responseEntityResult.getBody().get().count());
+    assertNotNull(responseEntityResult.getBody().getContent().get(0));
+    assertThat(responseEntityResult.getBody().getContent(), hasItems("Java", "DevOps", "Networks"));
+  }
+
+  @Test
+  void test_getTagPages_WhenGuestServiceReturnMultipleTags() {
+    ArgumentCaptor<Pageable> pageableArgumentCaptor = ArgumentCaptor.forClass(Pageable.class);
+    List<String> tagList = List.of("Awesome", "Cool", "Easy");
+    var pageTags = new PageImpl<>(tagList);
+
+    when(guestService.getTagPage(pageableArgumentCaptor.capture()))
+        .thenReturn(pageTags);
+    ResponseEntity<RestPage<String>> responseEntityResult = guestController
+        .getTagPages(0, 2, "ABC");
+
+    assertNotNull(responseEntityResult);
+    assertNotNull(responseEntityResult.getBody());
+    assertEquals(0, pageableArgumentCaptor.getValue().getPageNumber());
+    assertEquals(2, pageableArgumentCaptor.getValue().getPageSize());
+    assertEquals(3, responseEntityResult.getBody().get().count());
+    assertNotNull(responseEntityResult.getBody().getContent().get(0));
+    assertThat(responseEntityResult.getBody().getContent(), hasItems("Awesome", "Cool",
+        "Easy"));
   }
 
 }

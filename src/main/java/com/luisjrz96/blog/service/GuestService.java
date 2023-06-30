@@ -15,5 +15,10 @@ public interface GuestService {
    * @param pageable request for the repository (Database).
    * @return return a Page of PostDto objects.
    */
-  Page<PostDto> getAllPosts(Pageable pageable);
+  Page<PostDto> getPostPage(Pageable pageable);
+
+  Page<String> getCategoryPage(Pageable pageable);
+
+  Page<String> getTagPage(Pageable pageable);
+
 }

@@ -1,5 +1,7 @@
 package com.luisjrz96.blog.controller;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItems;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,7 +45,7 @@ class GuestControllerIntegrationTest {
 
   @Test
   @Transactional
-  void testGetPost_WhenMultipleAvailablePosts() throws Exception {
+  void test_getPostPages_WhenMultipleAvailablePosts() throws Exception {
     // Database should be populated using import.sql file
     MvcResult mvcResult = mockMvc.perform(get("/blog/posts?pageNumber=0&pageSize=2"
             + "&sortDirection=ASC"))
@@ -63,6 +65,50 @@ class GuestControllerIntegrationTest {
     assertTrue(postDtoPage.getContent().get(0).getTitle().contains("Spring Boot 3.0"));
     assertNotNull(postDtoPage.getContent().get(1));
     assertTrue(postDtoPage.getContent().get(1).getTitle().contains("Foo bar"));
+  }
+
+  @Test
+  @Transactional
+  void test_getCategoryPages_WhenMultipleAvailableCategories() throws Exception {
+    // Database should be populated using import.sql file
+    MvcResult mvcResult = mockMvc.perform(get("/blog/categories?pageNumber=0&pageSize=10"
+            + "&sortDirection=ASC"))
+        .andExpect(status().isOk())
+        .andReturn();
+
+    RestPage<String> categoryPage =
+        objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+            new TypeReference<RestPage<String>>() {});
+
+    assertNotNull(mvcResult.getResponse().getContentAsString());
+    assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
+    assertEquals(1, categoryPage.getTotalPages());
+    assertEquals(4, categoryPage.getTotalElements());
+    assertEquals(0, categoryPage.getPageable().getOffset());
+    assertNotNull(categoryPage.getContent().get(0));
+    assertThat(categoryPage.getContent(), hasItems("Java", "Go", "Python", "Databases"));
+  }
+
+  @Test
+  @Transactional
+  void test_getTagPages_WhenMultipleAvailableTags() throws Exception {
+    // Database should be populated using import.sql file
+    MvcResult mvcResult = mockMvc.perform(get("/blog/tags?pageNumber=0&pageSize=10"
+            + "&sortDirection=ASC"))
+        .andExpect(status().isOk())
+        .andReturn();
+
+    RestPage<String> categoryPage =
+        objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+            new TypeReference<RestPage<String>>() {});
+
+    assertNotNull(mvcResult.getResponse().getContentAsString());
+    assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
+    assertEquals(1, categoryPage.getTotalPages());
+    assertEquals(3, categoryPage.getTotalElements());
+    assertEquals(0, categoryPage.getPageable().getOffset());
+    assertNotNull(categoryPage.getContent().get(0));
+    assertThat(categoryPage.getContent(), hasItems("Development", "Practice", "Powerful"));
   }
 
 }

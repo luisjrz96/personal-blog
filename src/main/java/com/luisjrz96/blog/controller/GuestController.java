@@ -25,12 +25,42 @@ public class GuestController {
   private final GuestService guestService;
 
   @GetMapping("/posts")
-  ResponseEntity<RestPage<PostDto>> getAllPosts(@RequestParam(name = PAGE_NUMBER, required = false)
-      Integer pageNumber,
+  ResponseEntity<RestPage<PostDto>> getPostPages(
+      @RequestParam(name = PAGE_NUMBER, required = false) Integer pageNumber,
       @RequestParam(name = PAGE_SIZE, required = false) Integer pageSize,
       @RequestParam(name = SORT_DIRECTION, required = false) String sortDirection) {
 
-    return ResponseEntity.ok(new RestPage<>(guestService.getAllPosts(RequestProcessor
-        .processMultiplePostRequest(pageNumber, pageSize, sortDirection))));
+    return ResponseEntity.ok(
+        new RestPage<>(guestService.getPostPage(RequestProcessor.processMultiplePostRequest(
+            pageNumber,
+            pageSize,
+            sortDirection))));
   }
+
+  @GetMapping("/categories")
+  ResponseEntity<RestPage<String>> getCategoryPages(
+      @RequestParam(name = PAGE_NUMBER, required = false) Integer pageNumber,
+      @RequestParam(name = PAGE_SIZE, required = false) Integer pageSize,
+      @RequestParam(name = SORT_DIRECTION, required = false) String sortDirection) {
+
+    return ResponseEntity.ok(
+        new RestPage<>(guestService.getCategoryPage(RequestProcessor.processMultiplePostRequest(
+            pageNumber,
+            pageSize,
+            sortDirection))));
+  }
+
+  @GetMapping("/tags")
+  ResponseEntity<RestPage<String>> getTagPages(
+      @RequestParam(name = PAGE_NUMBER, required = false) Integer pageNumber,
+      @RequestParam(name = PAGE_SIZE, required = false) Integer pageSize,
+      @RequestParam(name = SORT_DIRECTION, required = false) String sortDirection) {
+
+    return ResponseEntity.ok(
+        new RestPage<>(guestService.getTagPage(RequestProcessor.processMultiplePostRequest(
+            pageNumber,
+            pageSize,
+            sortDirection))));
+  }
+
 }
