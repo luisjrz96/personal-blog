@@ -8,7 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.io.Serializable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
 @Table(name = "posts_tags")
-public class PostTag extends BaseModel implements Serializable {
+public class PostTag extends BaseModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
