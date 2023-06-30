@@ -20,8 +20,8 @@ public class RequestProcessor {
   }
 
   public static Pageable processMultiplePostRequest(Integer pageNumber, Integer pageSize,
-        String sortDirection) {
+      String sortDirection) {
     return PageRequest.of(getDefaultPageNumber(pageNumber), getDefaultPageSize(pageSize),
-          getDefaultDirection(sortDirection), getDefaultSortAttribute());
+        getDefaultDirection(sortDirection), getDefaultSortAttribute());
   }
 }
