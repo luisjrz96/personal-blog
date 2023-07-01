@@ -1,5 +1,6 @@
 package com.luisjrz96.blog.controller;
 
+import static com.luisjrz96.blog.util.Constants.CATEGORY_NAME;
 import static com.luisjrz96.blog.util.Constants.PAGE_NUMBER;
 import static com.luisjrz96.blog.util.Constants.PAGE_SIZE;
 import static com.luisjrz96.blog.util.Constants.SORT_DIRECTION;
@@ -63,4 +64,17 @@ public class GuestController {
             sortDirection))));
   }
 
+  @GetMapping("/subcategories")
+  ResponseEntity<RestPage<String>> getSubcategoryPages(
+      @RequestParam(name = PAGE_NUMBER, required = false) Integer pageNumber,
+      @RequestParam(name = PAGE_SIZE, required = false) Integer pageSize,
+      @RequestParam(name = SORT_DIRECTION, required = false) String sortDirection,
+      @RequestParam(name = CATEGORY_NAME, required = false) String categoryName) {
+
+    return ResponseEntity.ok(
+        new RestPage<>(guestService.getSubcategoryPage(RequestProcessor.processMultiplePostRequest(
+            pageNumber,
+            pageSize,
+            sortDirection), categoryName)));
+  }
 }

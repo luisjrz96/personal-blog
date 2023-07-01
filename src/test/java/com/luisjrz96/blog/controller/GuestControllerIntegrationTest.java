@@ -111,4 +111,50 @@ class GuestControllerIntegrationTest {
     assertThat(categoryPage.getContent(), hasItems("Development", "Practice", "Powerful"));
   }
 
+  @Test
+  @Transactional
+  void test_getSubcategoryPages_WhenNonSpecificCategoryAndMultipleResultsFromService()
+      throws Exception {
+    // Database should be populated using import.sql file
+    MvcResult mvcResult = mockMvc.perform(get("/blog/subcategories?pageNumber=0"
+            + "&pageSize=10&sortDirection=ASC"))
+        .andExpect(status().isOk())
+        .andReturn();
+
+    RestPage<String> subcategoryPage =
+        objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+            new TypeReference<RestPage<String>>() {});
+
+    assertNotNull(mvcResult.getResponse().getContentAsString());
+    assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
+    assertEquals(1, subcategoryPage.getTotalPages());
+    assertEquals(5, subcategoryPage.getTotalElements());
+    assertEquals(0, subcategoryPage.getPageable().getOffset());
+    assertNotNull(subcategoryPage.getContent().get(0));
+    assertThat(subcategoryPage.getContent(), hasItems("Spring Boot", "Annotations", "Stream API",
+        "Go Routines", "Generics"));
+  }
+
+  @Test
+  @Transactional
+  void test_getSubcategoryPages_WhenSpecificCategoryAndMultipleResultsFromService()
+      throws Exception {
+    // Database should be populated using import.sql file
+    MvcResult mvcResult = mockMvc.perform(get("/blog/subcategories?pageNumber=0"
+            + "&pageSize=10&sortDirection=ASC&categoryName=Go"))
+        .andExpect(status().isOk())
+        .andReturn();
+
+    RestPage<String> subcategoryPage =
+        objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+            new TypeReference<RestPage<String>>() {});
+
+    assertNotNull(mvcResult.getResponse().getContentAsString());
+    assertEquals(MediaType.APPLICATION_JSON_VALUE, mvcResult.getResponse().getContentType());
+    assertEquals(1, subcategoryPage.getTotalPages());
+    assertEquals(2, subcategoryPage.getTotalElements());
+    assertEquals(0, subcategoryPage.getPageable().getOffset());
+    assertNotNull(subcategoryPage.getContent().get(0));
+    assertThat(subcategoryPage.getContent(), hasItems("Go Routines", "Generics"));
+  }
 }

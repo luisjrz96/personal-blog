@@ -2,16 +2,16 @@ spring:
   application: blog-luisjrz96
   config:
     activate:
-      on-profile: dev
+      on-profile: local
   main:
     banner-mode: off
 ---
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: local
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testing_db
     driverClassName: org.h2.Driver
     username: sa
     password: password

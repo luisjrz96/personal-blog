@@ -16,6 +16,7 @@ public class Constants {
   public static final String SORT_DIRECTION = "sortDirection";
   public static final int DEFAULT_PAGE_SIZE = 1;
   public static final int DEFAULT_PAGE_NUMBER = 0;
+  public static final String CATEGORY_NAME = "categoryName";
   public static final String DEFAULT_SORT_ATTRIBUTE = "createdDate";
   public static final Sort.Direction DEFAULT_SORT_DIRECTION = Sort.Direction.ASC;
 }

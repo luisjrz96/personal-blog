@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -91,6 +92,27 @@ class GuestControllerTest {
     assertNotNull(responseEntityResult.getBody().getContent().get(0));
     assertThat(responseEntityResult.getBody().getContent(), hasItems("Awesome", "Cool",
         "Easy"));
+  }
+
+  @Test
+  void test_getSubcategoryPages_WhenServiceReturnMultipleSubcategories() {
+    ArgumentCaptor<Pageable> pageableArgumentCaptor = ArgumentCaptor.forClass(Pageable.class);
+    List<String> tagList = List.of("Spring Boot", "Streams");
+    var pageSubcategories = new PageImpl<>(tagList);
+
+    when(guestService.getSubcategoryPage(pageableArgumentCaptor.capture(),
+        Mockito.nullable(String.class)))
+        .thenReturn(pageSubcategories);
+    ResponseEntity<RestPage<String>> responseEntityResult = guestController
+        .getSubcategoryPages(0, 2, "ABC", null);
+
+    assertNotNull(responseEntityResult);
+    assertNotNull(responseEntityResult.getBody());
+    assertEquals(0, pageableArgumentCaptor.getValue().getPageNumber());
+    assertEquals(2, pageableArgumentCaptor.getValue().getPageSize());
+    assertEquals(2, responseEntityResult.getBody().get().count());
+    assertNotNull(responseEntityResult.getBody().getContent().get(0));
+    assertThat(responseEntityResult.getBody().getContent(), hasItems("Spring Boot", "Streams"));
   }
 
 }

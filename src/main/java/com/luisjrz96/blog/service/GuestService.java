@@ -21,4 +21,5 @@ public interface GuestService {
 
   Page<String> getTagPage(Pageable pageable);
 
+  Page<String> getSubcategoryPage(Pageable pageable, String categoryName);
 }

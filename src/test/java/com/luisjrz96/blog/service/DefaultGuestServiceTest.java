@@ -11,9 +11,11 @@ import com.luisjrz96.blog.data.dto.PostDto;
 import com.luisjrz96.blog.data.mapper.PostDtoMapper;
 import com.luisjrz96.blog.data.model.Category;
 import com.luisjrz96.blog.data.model.Post;
+import com.luisjrz96.blog.data.model.Subcategory;
 import com.luisjrz96.blog.data.model.Tag;
 import com.luisjrz96.blog.data.repository.CategoryRepository;
 import com.luisjrz96.blog.data.repository.PostRepository;
+import com.luisjrz96.blog.data.repository.SubcategoryRepository;
 import com.luisjrz96.blog.data.repository.TagRepository;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -36,6 +38,8 @@ class DefaultGuestServiceTest {
   private CategoryRepository categoryRepository;
   @Mock
   private TagRepository tagRepository;
+  @Mock
+  private SubcategoryRepository subcategoryRepository;
   @Mock
   private PostDtoMapper postDtoMapper;
 
@@ -82,5 +86,34 @@ class DefaultGuestServiceTest {
     assertEquals(1, categoryPage.getTotalPages());
     assertNotNull(categoryPage.getContent());
     assertThat(categoryPage.getContent(), hasItems("Awesome", "Cool", "Easy"));
+  }
+
+  @Test
+  void test_getSubcategoryPage_WhenNonSpecificCategoryAndRepositoryReturnMultipleSubcategories() {
+    List<Subcategory> subcategoryList = List.of(Subcategory.builder().name("Spring Boot").build(),
+        Subcategory.builder().name("Streams").build());
+    when(subcategoryRepository.findAll(Mockito.any(Pageable.class)))
+        .thenReturn(new PageImpl<>(subcategoryList));
+
+    Page<String> subcategoryPage = defaultGuestService.getSubcategoryPage(Pageable.unpaged(), null);
+    assertNotNull(subcategoryPage);
+    assertEquals(1, subcategoryPage.getTotalPages());
+    assertNotNull(subcategoryPage.getContent());
+    assertThat(subcategoryPage.getContent(), hasItems("Spring Boot", "Streams"));
+  }
+
+  @Test
+  void test_getSubcategoryPage_ForSpecificCategoryAndRepositoryReturnMultipleSubcategories() {
+    List<Subcategory> subcategoryList = List.of(Subcategory.builder().name("Spring Boot").build(),
+        Subcategory.builder().name("Streams").build());
+    when(subcategoryRepository.findByCategoryName(Mockito.any(Pageable.class), Mockito.any()))
+        .thenReturn(new PageImpl<>(subcategoryList));
+
+    Page<String> subcategoryPage = defaultGuestService.getSubcategoryPage(Pageable.unpaged(),
+        "Java");
+    assertNotNull(subcategoryPage);
+    assertEquals(1, subcategoryPage.getTotalPages());
+    assertNotNull(subcategoryPage.getContent());
+    assertThat(subcategoryPage.getContent(), hasItems("Spring Boot", "Streams"));
   }
 }
