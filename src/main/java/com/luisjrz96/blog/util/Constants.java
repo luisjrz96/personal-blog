@@ -1,6 +1,6 @@
 package com.luisjrz96.blog.util;
 
-import com.luisjrz96.blog.exception.InvalidInstantiationException;
+import com.luisjrz96.blog.api.exception.InvalidInstantiationException;
 import org.springframework.data.domain.Sort;
 
 public class Constants {
@@ -19,4 +19,11 @@ public class Constants {
   public static final String CATEGORY_NAME = "categoryName";
   public static final String DEFAULT_SORT_ATTRIBUTE = "createdDate";
   public static final Sort.Direction DEFAULT_SORT_DIRECTION = Sort.Direction.ASC;
+
+  // ADMIN PATHS
+  public static final String ADMIN_CATEGORIES_PATH = "/api/admin/categories";
+  public static final String ADMIN_TAGS_PATH = "/api/admin/tags";
+  public static final String ADMIN_SUBCATEGORIES_PATH = "/api/admin/subcategories";
+
+
 }

@@ -75,7 +75,7 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, excludes: ['com/luisjrz96/blog/BlogApplication',
-                                         'com/luisjrz96/blog/data/dto/**', 'com/luisjrz96/blog/data/exception/**'])
+                'com/luisjrz96/blog/api/data/dto/**', 'com/luisjrz96/blog/api/exception/**'])
         }))
     }
 }
