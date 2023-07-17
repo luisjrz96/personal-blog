@@ -3,7 +3,7 @@ package com.luisjrz96.blog.api.admin.query.service.generic;
 import static com.luisjrz96.blog.api.util.query.QueryUtil.getTypeClassName;
 
 import com.luisjrz96.blog.api.exception.NotFoundException;
-import com.luisjrz96.blog.data.database.repository.GenericRepository;
+import com.luisjrz96.blog.data.persistence.repository.GenericRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

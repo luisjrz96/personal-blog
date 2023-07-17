@@ -10,8 +10,8 @@ import static org.mockito.Mockito.when;
 
 import com.luisjrz96.blog.api.data.response.dto.RestPage;
 import com.luisjrz96.blog.api.exception.NotFoundException;
-import com.luisjrz96.blog.data.database.model.Category;
-import com.luisjrz96.blog.data.database.repository.CategoryRepository;
+import com.luisjrz96.blog.data.persistence.model.Category;
+import com.luisjrz96.blog.data.persistence.repository.CategoryRepository;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;

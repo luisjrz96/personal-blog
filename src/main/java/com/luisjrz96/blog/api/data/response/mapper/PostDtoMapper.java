@@ -4,10 +4,10 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
 
 import com.luisjrz96.blog.api.data.response.dto.PostDto;
-import com.luisjrz96.blog.data.database.model.Post;
-import com.luisjrz96.blog.data.database.model.PostTag;
-import com.luisjrz96.blog.data.database.model.Subcategory;
-import com.luisjrz96.blog.data.database.model.Tag;
+import com.luisjrz96.blog.data.persistence.model.Post;
+import com.luisjrz96.blog.data.persistence.model.PostTag;
+import com.luisjrz96.blog.data.persistence.model.Subcategory;
+import com.luisjrz96.blog.data.persistence.model.Tag;
 import java.util.List;
 import java.util.Optional;
 import org.mapstruct.Mapper;

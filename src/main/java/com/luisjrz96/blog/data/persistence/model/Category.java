@@ -1,4 +1,4 @@
-package com.luisjrz96.blog.data.database.model;
+package com.luisjrz96.blog.data.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +27,7 @@ public class Category extends BaseModel {
   @Column(name = "category_id")
   private Long categoryId;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String name;
 
 }

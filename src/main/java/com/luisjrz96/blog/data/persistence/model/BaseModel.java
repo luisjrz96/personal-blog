@@ -1,4 +1,4 @@
-package com.luisjrz96.blog.data.database.model;
+package com.luisjrz96.blog.data.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

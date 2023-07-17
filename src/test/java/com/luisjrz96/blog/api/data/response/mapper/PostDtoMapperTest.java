@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.luisjrz96.blog.data.database.model.Category;
-import com.luisjrz96.blog.data.database.model.Post;
-import com.luisjrz96.blog.data.database.model.PostTag;
-import com.luisjrz96.blog.data.database.model.Subcategory;
-import com.luisjrz96.blog.data.database.model.Tag;
-import com.luisjrz96.blog.data.database.model.User;
+import com.luisjrz96.blog.data.persistence.model.Category;
+import com.luisjrz96.blog.data.persistence.model.Post;
+import com.luisjrz96.blog.data.persistence.model.PostTag;
+import com.luisjrz96.blog.data.persistence.model.Subcategory;
+import com.luisjrz96.blog.data.persistence.model.Tag;
+import com.luisjrz96.blog.data.persistence.model.User;
 import java.time.Instant;
 import java.util.List;
 import org.junit.jupiter.api.Test;

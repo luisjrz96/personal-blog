@@ -1,4 +1,4 @@
-package com.luisjrz96.blog.data.database.model;
+package com.luisjrz96.blog.data.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,9 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,29 +22,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "posts")
-public class Post extends BaseModel {
-
+@Table(name = "subcategories")
+public class Subcategory extends BaseModel {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "post_id")
-  private Long postId;
+  @Column(name = "subcategory_id")
+  private Long subcategoryId;
 
   @Column(nullable = false)
-  private String title;
-
-  @Column(nullable = false)
-  private String content;
+  private String name;
 
   @ManyToOne
-  @JoinColumn(name = "user_id")
-  private User user;
-
-  @ManyToOne
-  @JoinColumn(name = "subcategory_id")
-  private Subcategory subcategory;
-
-  @OneToMany(mappedBy = "post")
-  private List<PostTag> postTagList;
-
+  @JoinColumn(name = "category_id")
+  private Category category;
 }

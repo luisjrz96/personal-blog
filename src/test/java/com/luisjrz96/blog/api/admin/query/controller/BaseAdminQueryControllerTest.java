@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import com.luisjrz96.blog.api.admin.query.service.AdminCategoryQueryService;
 import com.luisjrz96.blog.api.data.response.dto.RestPage;
-import com.luisjrz96.blog.data.database.model.Category;
+import com.luisjrz96.blog.data.persistence.model.Category;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

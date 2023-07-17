@@ -1,10 +1,12 @@
-package com.luisjrz96.blog.data.database.model;
+package com.luisjrz96.blog.data.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,18 +22,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User extends BaseModel {
+@Table(name = "posts_tags")
+public class PostTag extends BaseModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "user_id")
-  private Long userId;
+  @Column(name = "posts_tags_id")
+  private Long postTagId;
 
-  private String email;
+  @ManyToOne
+  @JoinColumn(name = "post_id")
+  private Post post;
 
-  private String username;
-
-  private String password;
+  @ManyToOne
+  @JoinColumn(name = "tag_id")
+  private Tag tag;
 
 }

@@ -1,4 +1,4 @@
-package com.luisjrz96.blog.data.database.model;
+package com.luisjrz96.blog.data.persistence.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,15 +20,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tags")
-public class Tag extends BaseModel {
+@Table(name = "users")
+public class User extends BaseModel {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "tag_id")
-  private Long tagId;
+  @Column(name = "user_id")
+  private Long userId;
 
-  @Column(nullable = false)
-  private String name;
+  private String email;
+
+  private String username;
+
+  private String password;
 
 }
