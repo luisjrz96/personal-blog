@@ -1,6 +1,5 @@
 package com.luisjrz96.blog.api.admin.command.controller;
 
-import static com.luisjrz96.blog.util.Constants.ADMIN_CATEGORIES_PATH;
 import static com.luisjrz96.blog.util.Constants.ADMIN_TAGS_PATH;
 
 import com.luisjrz96.blog.api.admin.command.controller.generic.AdminCommandControllerImpl;

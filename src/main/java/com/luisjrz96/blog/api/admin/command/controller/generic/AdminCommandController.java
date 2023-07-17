@@ -1,7 +1,7 @@
 package com.luisjrz96.blog.api.admin.command.controller.generic;
 
 
-public interface AdminCommandController <D, I> {
+public interface AdminCommandController<D, I> {
 
   void delete(I identifier);
 
